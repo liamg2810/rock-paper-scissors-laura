@@ -1,9 +1,11 @@
 <script lang="ts">
+  import Checkmark from "$lib/assets/checkmark.svelte";
   import paper from "$lib/assets/paper.png";
   import rock from "$lib/assets/rock.png";
   import scissors from "$lib/assets/scissors.png";
-  import { fly } from "svelte/transition";
+
   let playerChoice: string;
+  let madeChoice = false;
 
   function makeChoice(choice: string) {
     playerChoice = choice;
@@ -11,21 +13,24 @@
 </script>
 
 <div class="game">
+  <h1>Rock Paper Scissors</h1>
+
   <button
     on:click={() => makeChoice("rock")}
-    class="btn-choice btn-rock selecting"
+    class="btn-choice btn-rock"
+    class:selecting={!madeChoice}
   >
     <img src={rock} alt="rock" /></button
   >
   <button
     on:click={() => makeChoice("paper")}
-    class="btn-choice btn-paper selecting"
-    ><img src={paper} alt="paper" /></button
+    class="btn-choice btn-paper"
+    class:selecting={!madeChoice}><img src={paper} alt="paper" /></button
   >
   <button
     on:click={() => makeChoice("scissors")}
-    class="btn-choice btn-scissors selecting"
-    ><img src={scissors} alt="scissors" /></button
+    class="btn-choice btn-scissors"
+    class:selecting={!madeChoice}><img src={scissors} alt="scissors" /></button
   >
 
   {#if playerChoice}
@@ -49,25 +54,49 @@
         class:selected-choice={playerChoice == "scissors"}
       />
     </div>
+
+    {#if !madeChoice}
+      <button
+        class="btn-confirm"
+        on:click={() => {
+          madeChoice = true;
+        }}
+      >
+        <Checkmark />
+      </button>
+    {/if}
   {/if}
+  <a
+    href="https://www.vecteezy.com/free-vector/rock-paper-scissors"
+    class="attribution">Rock Paper Scissors Vectors by Vecteezy</a
+  >
 </div>
 
 <style>
   :global(body) {
     margin: 0;
-    font-family: sans-serif;
+  }
+
+  h1 {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "DynaPuff", system-ui;
+    font-size: 3rem;
   }
 
   .btn-choice {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0);
     width: 100px;
     height: 100px;
     border-radius: 50%;
     border: 3px solid black;
     background-color: rgb(159, 241, 255);
+    transition: all 0.3s;
   }
 
   img {
@@ -79,23 +108,27 @@
   .btn-rock.selecting {
     top: 30%;
     left: 40%;
-    transform: translate(-50%, -50%) rotate(-45deg);
+    transform: translate(-50%, -50%) rotate(-45deg) scale(1);
   }
 
   .btn-paper.selecting {
     top: 30%;
     left: 60%;
-    transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
   }
 
   .btn-scissors.selecting {
     top: 70%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1);
   }
 
   .btn-choice img {
     width: 100%;
     height: 100%;
+  }
+
+  .btn-choice:hover {
+    transform: translate(-50%, -50%) scale(1.1);
   }
 
   .choice {
@@ -161,5 +194,37 @@
         96px 96px,
         192px 192px;
     }
+  }
+
+  .attribution {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    font-size: 12px;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .btn-confirm {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    padding: 10px;
+    background: linear-gradient(125deg, #00ff00, #007700);
+    border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+  }
+
+  .btn-confirm:hover {
+    background: linear-gradient(125deg, #00ff00, #007700);
+    transform: translate(-50%, 50%) scale(1.1);
   }
 </style>
