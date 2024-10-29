@@ -27,3 +27,4 @@ This project is licensed under the MIT License.
 
 - [Svelte](https://svelte.dev/)
 - [Vite](https://vitejs.dev/)
+- [Tauri](https://tauri.app/)
