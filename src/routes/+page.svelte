@@ -1,14 +1,39 @@
 <script lang="ts">
+  import EndGame from "$lib/components/EndGame.svelte";
   import Menu from "$lib/components/Menu.svelte";
   import UserChoice from "$lib/components/UserChoice.svelte";
 
   let gameState: string = "menu";
 
   let playerChoice: string;
+  let computerChoice: string;
+  let result: string;
 
-  function EndGame(ev: CustomEvent<any>) {
+  function EndGameHandler(ev: CustomEvent<any>) {
     gameState = "end";
     playerChoice = ev.detail.choice;
+    computerChoice = ["rock", "paper", "scissors"][
+      Math.floor(Math.random() * 3)
+    ];
+
+    if (
+      (playerChoice === "rock" && computerChoice === "scissors") ||
+      (playerChoice === "paper" && computerChoice === "rock") ||
+      (playerChoice === "scissors" && computerChoice === "paper")
+    ) {
+      result = "You Win!";
+    } else if (playerChoice === computerChoice) {
+      result = "It's a Draw!";
+    } else {
+      result = "You Lose!";
+    }
+  }
+
+  function RestartGame() {
+    gameState = "menu";
+    playerChoice = "";
+    computerChoice = "";
+    result = "";
   }
 </script>
 
@@ -22,10 +47,14 @@
       }}
     />
   {:else if gameState === "game"}
-    <UserChoice on:choice-made={EndGame} />
+    <UserChoice on:choice-made={EndGameHandler} />
   {:else if gameState === "end"}
-    <h1>Game Over</h1>
-    <button on:click={() => (gameState = "menu")}>Play Again</button>
+    <EndGame
+      userChoice={playerChoice}
+      {computerChoice}
+      {result}
+      on:playAgain={RestartGame}
+    />
   {/if}
 </div>
 
