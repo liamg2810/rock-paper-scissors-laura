@@ -1,11 +1,32 @@
-<script>
+<script lang="ts">
+  import Menu from "$lib/components/Menu.svelte";
   import UserChoice from "$lib/components/UserChoice.svelte";
+
+  let gameState: string = "menu";
+
+  let playerChoice: string;
+
+  function EndGame(ev: CustomEvent<any>) {
+    gameState = "end";
+    playerChoice = ev.detail.choice;
+  }
 </script>
 
 <div class="game">
-  <h1>Rock Paper Scissors</h1>
+  <h1 class="title">Rock Paper Scissors</h1>
 
-  <UserChoice />
+  {#if gameState === "menu"}
+    <Menu
+      on:start-game={() => {
+        gameState = "game";
+      }}
+    />
+  {:else if gameState === "game"}
+    <UserChoice on:choice-made={EndGame} />
+  {:else if gameState === "end"}
+    <h1>Game Over</h1>
+    <button on:click={() => (gameState = "menu")}>Play Again</button>
+  {/if}
 </div>
 
 <a
@@ -18,7 +39,7 @@
     margin: 0;
   }
 
-  h1 {
+  .title {
     position: absolute;
     top: 5%;
     left: 50%;

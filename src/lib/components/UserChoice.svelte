@@ -3,10 +3,12 @@
   import paper from "$lib/assets/paper.png";
   import rock from "$lib/assets/rock.png";
   import scissors from "$lib/assets/scissors.png";
+  import { createEventDispatcher } from "svelte";
+
+  let dispatch = createEventDispatcher();
 
   let playerChoice: string;
   let madeChoice = false;
-  let endGame = false;
 
   function makeChoice(choice: string) {
     playerChoice = choice;
@@ -15,7 +17,7 @@
   function ConfirmChoice() {
     madeChoice = true;
     setTimeout(() => {
-      endGame = true;
+      dispatch("choice-made", { choice: playerChoice });
     }, 1000);
   }
 </script>
