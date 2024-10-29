@@ -12,6 +12,10 @@
   let plopAudio: HTMLAudioElement;
   let bgMusicAudio: HTMLAudioElement;
 
+  let wins: number = 0;
+  let draws: number = 0;
+  let losses: number = 0;
+
   let gameState: string = "menu";
 
   let playerChoice: string;
@@ -31,10 +35,13 @@
       (playerChoice === "scissors" && computerChoice === "paper")
     ) {
       result = "You Win!";
+      wins++;
     } else if (playerChoice === computerChoice) {
       result = "It's a Draw!";
+      draws++;
     } else {
       result = "You Lose!";
+      losses++;
     }
   }
 
@@ -88,6 +95,11 @@
 
 <div class="game">
   <h1 class="title">Rock Paper Scissors</h1>
+  <div class="scores">
+    <span class="score">Wins: {wins}</span>
+    <span class="score">Draws: {draws}</span>
+    <span class="score">Losses: {losses}</span>
+  </div>
 
   {#if gameState === "menu"}
     <Menu
@@ -129,6 +141,17 @@
     transform: translate(-50%, -50%);
     font-family: "DynaPuff", system-ui;
     font-size: 3rem;
+  }
+
+  .scores {
+    position: absolute;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    top: 5%;
+    right: 5%;
+    font-size: 2rem;
+    font-family: "DynaPuff", system-ui;
   }
 
   .game {
