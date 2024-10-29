@@ -12,6 +12,7 @@
 
   function makeChoice(choice: string) {
     playerChoice = choice;
+    dispatch("update-button-audio");
   }
 
   function ConfirmChoice() {

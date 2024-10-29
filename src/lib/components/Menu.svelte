@@ -9,7 +9,7 @@
 </script>
 
 <div class="menu-container">
-  <button class="start-button" on:click={startGame}>Start Game</button>
+  <button class="btn-start" on:click={startGame}>Start Game</button>
 </div>
 
 <style>
@@ -20,24 +20,24 @@
     height: 100vh;
   }
 
-  .start-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
+  .btn-start {
+    padding: 10px 20px;
+    font-size: 2rem;
+    cursor: pointer;
     background-color: #007bff;
+    color: #fff;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
     transition: all 0.3s ease;
+    font-family: "DynaPuff", system-ui;
   }
 
-  .start-button:hover {
+  .btn-start:hover {
     background-color: #0056b3;
     scale: 1.1;
   }
 
-  .start-button:active {
+  .btn-start:active {
     background-color: #004085;
   }
 </style>

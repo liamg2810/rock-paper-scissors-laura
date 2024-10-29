@@ -1,7 +1,16 @@
 <script lang="ts">
+  import bgMusic from "$lib/assets/bg-music.mp3";
+  import click from "$lib/assets/click.mp3";
+  import plop from "$lib/assets/plop.mp3";
   import EndGame from "$lib/components/EndGame.svelte";
   import Menu from "$lib/components/Menu.svelte";
   import UserChoice from "$lib/components/UserChoice.svelte";
+
+  import { onMount, tick } from "svelte";
+
+  let clickAudio: HTMLAudioElement;
+  let plopAudio: HTMLAudioElement;
+  let bgMusicAudio: HTMLAudioElement;
 
   let gameState: string = "menu";
 
@@ -35,6 +44,46 @@
     computerChoice = "";
     result = "";
   }
+
+  function PlaySoundOnHover(event: Event) {
+    if (event.target instanceof HTMLButtonElement) {
+      plopAudio.play();
+    }
+  }
+
+  async function UpdateButtonListeners(_: string) {
+    await tick();
+
+    document.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("mouseover", PlaySoundOnHover);
+    });
+  }
+
+  $: UpdateButtonListeners(gameState);
+
+  onMount(() => {
+    clickAudio = new Audio(click);
+    plopAudio = new Audio(plop);
+    bgMusicAudio = new Audio(bgMusic);
+
+    bgMusicAudio.loop = true;
+    bgMusicAudio.play();
+
+    window.addEventListener("click", PlayClickSound);
+
+    UpdateButtonListeners(gameState);
+
+    return () => {
+      window.removeEventListener("click", PlayClickSound);
+      document.querySelectorAll("button").forEach((button) => {
+        button.removeEventListener("mouseover", PlaySoundOnHover);
+      });
+    };
+  });
+
+  function PlayClickSound() {
+    clickAudio.play();
+  }
 </script>
 
 <div class="game">
@@ -47,7 +96,12 @@
       }}
     />
   {:else if gameState === "game"}
-    <UserChoice on:choice-made={EndGameHandler} />
+    <UserChoice
+      on:choice-made={EndGameHandler}
+      on:update-button-audio={() => {
+        UpdateButtonListeners("");
+      }}
+    />
   {:else if gameState === "end"}
     <EndGame
       userChoice={playerChoice}
