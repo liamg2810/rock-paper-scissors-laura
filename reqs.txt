@@ -1,0 +1,10 @@
+# Requirements for Rock Paper Scissors Game
+
+1. **User Interface**:
+    - A simple and intuitive UI for users to select Rock, Paper, or Scissors.
+    - Display the result of each round (win, lose, draw).
+    - Keep track of the score.
+
+2. **Game Logic**:
+    - Implement the core game logic to determine the winner based on user and computer choices.
+    - Ensure randomness in computer's choice.

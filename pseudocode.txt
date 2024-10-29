@@ -1,0 +1,21 @@
+SEND "Choose Rock, Paper, or Scissors:" TO DISPLAY
+
+RECIEVE userChoice FROM KEYBOARD
+
+SET choices TO ["Rock", "Paper", "Scissors"]
+SET n TO RANDOM(3)
+
+SER randomChoice TO choices[n]
+
+IF userChoice = randomChoice THEN
+    DISPLAY "It's a tie!"
+ELSE IF userChoice = "Rock" AND randomChoice = "Scissors" THEN
+    DISPLAY "You win!"
+ELSE IF userChoice = "Paper" AND randomChoice = "Rock" THEN
+    DISPLAY "You win!"
+ELSE IF userChoice = "Scissors" AND randomChoice = "Paper" THEN
+    DISPLAY "You win!"
+ELSE
+    DISPLAY "You lose!"
+
+END

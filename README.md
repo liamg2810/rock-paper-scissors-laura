@@ -1,7 +1,29 @@
-# Tauri + SvelteKit + TypeScript
+# Rock-Paper-Scissors Game
 
-This template should help get you started developing with Tauri, SvelteKit and TypeScript in Vite.
+This is a simple Rock-Paper-Scissors game built with Svelte for my college project.
 
-## Recommended IDE Setup
+## Features
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
+- Play Rock-Paper-Scissors against the computer
+- Simple and intuitive UI
+- Responsive design
+
+## College requirements
+
+- Requirements can be found in reqs.txt
+- Flowchart can be found in flowchart.png
+- Pseudocode can be found in pseudocode.txt
+- Sourcecode and project files can be found within ./src
+
+## Installation
+
+- Installation file (.msi) can be found in ./installer
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgements
+
+- [Svelte](https://svelte.dev/)
+- [Vite](https://vitejs.dev/)
