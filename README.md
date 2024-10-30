@@ -18,6 +18,7 @@ This is a simple Rock-Paper-Scissors game built with Svelte for my college proje
 ## Installation
 
 - Installation file (.msi) can be found in ./installer
+- Alternatively download the repo and run ```npm run tauri dev```
 
 ## License
 
